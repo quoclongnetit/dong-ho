@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Thử giọng đọc</title>
+<style>
+body { font-family: -apple-system, "Helvetica Neue", Arial, sans-serif; background: #fff6e0; color: #3b2f5c; margin: 0; padding: 24px; font-size: 20px; }
+h1 { font-size: 30px; margin: 0 0 12px; }
+.box { background: #fff; border: 3px solid #3b2f5c; border-radius: 20px; padding: 16px 20px; margin-bottom: 16px; }
+button { font-size: 22px; font-weight: 700; padding: 14px 20px; margin: 6px 8px 6px 0; border-radius: 16px; border: 3px solid #3b2f5c; background: #1e6bff; color: #fff; }
+button.pink { background: #ff2e93; }
+.big { font-size: 28px; font-weight: 800; }
+.ok { color: #0f9e8e; } .no { color: #ff2e93; }
+#list { font-size: 15px; line-height: 1.5; max-height: 260px; overflow: auto; }
+</style>
+</head>
+<body>
+<h1>🗣️ Thử giọng đọc tiếng Việt</h1>
+<div class="box">
+  <div class="big" id="result">Đang kiểm tra…</div>
+  <div id="detail"></div>
+</div>
+<div class="box">
+  Bật tiếng iPad (gạt nút im lặng bên hông, tăng âm lượng) rồi bấm:<br>
+  <button id="b1">▶ Đọc bằng giọng tiếng Việt</button>
+  <button class="pink" id="b2">▶ Đọc bằng giọng mặc định</button>
+  <div style="margin-top:8px;font-size:16px">Câu thử: "Đến giờ học bài rồi Bánh Bao ơi"</div>
+</div>
+<div class="box"><b>Các giọng có trên máy này:</b><div id="list"></div></div>
+<script>
+(function () {
+  var TEXT = 'Đến giờ học bài rồi Bánh Bao ơi';
+  var S = window.speechSynthesis;
+  function $(id) { return document.getElementById(id); }
+  function show() {
+    if (!S || !window.SpeechSynthesisUtterance) {
+      $('result').innerHTML = '<span class="no">❌ Trình duyệt này không có chức năng đọc chữ.</span>';
+      return;
+    }
+    var v = S.getVoices() || [], vi = [], rows = [];
+    for (var i = 0; i < v.length; i++) {
+      rows.push(v[i].name + ' — ' + v[i].lang);
+      if (/^vi/i.test(v[i].lang)) vi.push(v[i]);
+    }
+    $('list').innerHTML = rows.length ? rows.join('<br>') : '(Máy chưa trả về danh sách giọng)';
+    if (vi.length) $('result').innerHTML = '<span class="ok">✅ Có giọng tiếng Việt: ' + vi[0].name + '</span>';
+    else $('result').innerHTML = '<span class="no">❌ Không thấy giọng tiếng Việt</span> (' + v.length + ' giọng khác)';
+    $('detail').textContent = navigator.userAgent;
+  }
+  function speak(useVi) {
+    if (!S) return;
+    S.cancel();
+    var u = new SpeechSynthesisUtterance(TEXT);
+    if (useVi) {
+      u.lang = 'vi-VN';
+      var v = S.getVoices() || [];
+      for (var i = 0; i < v.length; i++) if (/^vi/i.test(v[i].lang)) { u.voice = v[i]; break; }
+    }
+    u.rate = 1;
+    S.speak(u);
+  }
+  $('b1').onclick = function () { speak(true); };
+  $('b2').onclick = function () { speak(false); };
+  show();
+  if (S) { S.onvoiceschanged = show; setTimeout(show, 1000); }
+})();
+</script>
+</body>
+</html>
