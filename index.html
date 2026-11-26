@@ -339,6 +339,15 @@ body.dark.s-noel .btn { background: #4ade80; color: #04210f; }
 
       <div class="sec-title">Câu nói hay</div>
       <div class="field"><label>Câu của riêng nhà mình (không bắt buộc)</label><textarea id="sQuotes" placeholder="Mỗi dòng một câu. Để trống thì dùng ca dao, tục ngữ có sẵn."></textarea></div>
+
+      <div class="sec-title">Sao lưu &amp; chuyển sang máy khác</div>
+      <div class="field"><label>Mã dữ liệu</label>
+        <textarea id="bkCode" placeholder="Bấm &quot;Tạo mã sao lưu&quot;, hoặc dán mã từ máy khác vào đây rồi bấm &quot;Khôi phục&quot;."></textarea>
+        <div style="margin-top:8px"><button class="btn" id="btnBackup">Tạo mã sao lưu</button>
+          <button class="btn ghost" id="btnRestore" style="margin-left:8px">Khôi phục từ mã</button></div>
+        <div class="hint">Mã chứa cài đặt, thành viên, sinh nhật, việc lặp lại, thời khóa biểu, việc cần làm và lời nhắn (không gồm ảnh).<br>
+          Cách chuyển: nhập xong trên máy tính → Tạo mã sao lưu → gửi mã qua Zalo/email → trên iPad dán vào ô này → Khôi phục từ mã.<br>
+          Khôi phục sẽ <b>thay toàn bộ</b> dữ liệu hiện có trên máy này (ảnh vẫn giữ).</div></div>
     </div>
   </div>
 </div>
@@ -1424,6 +1433,49 @@ body.dark.s-noel .btn { background: #4ade80; color: #04210f; }
     updateOverlay(now);
     setTimeout(tick, 1000 - now.getMilliseconds() + 5);
   }
+
+  /* ================= Sao lưu / khôi phục ================= */
+  var BK_KEYS = ['dh_settings', 'dh_todos', 'dh_reclog', 'dh_note'];
+  $('btnBackup').onclick = function () {
+    var data = { v: 1, at: Date.now() };
+    for (var i = 0; i < BK_KEYS.length; i++) {
+      try { var raw = window.localStorage.getItem(BK_KEYS[i]); if (raw) data[BK_KEYS[i]] = JSON.parse(raw); } catch (e) {}
+    }
+    // Lấy cả những gì đang gõ dở trong bảng cài đặt.
+    var cur = JSON.parse(JSON.stringify(settings));
+    for (var f = 0; f < FIELDS.length; f++) {
+      var k = FIELDS[f][1], v = $(FIELDS[f][0]).value;
+      cur[k] = NUMERIC[k] ? +v : (k === 'name' ? trim(v) : v);
+    }
+    for (var j = 0; j < TT_KEYS.length; j++) cur.tt[TT_KEYS[j][0]] = $('tt_' + TT_KEYS[j][0]).value;
+    data.dh_settings = cur;
+    var code = 'DONGHO1:' + window.btoa(unescape(encodeURIComponent(JSON.stringify(data))));
+    var ta = $('bkCode');
+    ta.value = code;
+    ta.focus();
+    try { ta.setSelectionRange(0, code.length); } catch (e) { ta.select(); }
+    var ok = false;
+    try { ok = document.execCommand('copy'); } catch (e) {}
+    flash(ok ? 'Đã tạo và sao chép mã. Dán vào Zalo/email để gửi.' : 'Đã tạo mã. Chọn hết rồi sao chép để gửi.');
+  };
+  $('btnRestore').onclick = function () {
+    var code = trim($('bkCode').value).replace(/\s+/g, '');
+    var data = null;
+    if (code.indexOf('DONGHO1:') === 0) {
+      try { data = JSON.parse(decodeURIComponent(escape(window.atob(code.slice(8))))); } catch (e) { data = null; }
+    }
+    if (!data || data.v !== 1 || !data.dh_settings) { window.alert('Mã không hợp lệ. Hãy dán đủ cả đoạn, bắt đầu bằng DONGHO1:'); return; }
+    var when = new Date(data.at);
+    if (!window.confirm('Khôi phục dữ liệu sao lưu lúc ' + pad(when.getHours()) + ':' + pad(when.getMinutes()) + ' ngày ' +
+      when.getDate() + '/' + (when.getMonth() + 1) + '/' + when.getFullYear() + '?\nDữ liệu hiện có trên máy này sẽ bị thay thế (ảnh vẫn giữ).')) return;
+    for (var i = 0; i < BK_KEYS.length; i++) {
+      try {
+        if (data[BK_KEYS[i]] != null) window.localStorage.setItem(BK_KEYS[i], JSON.stringify(data[BK_KEYS[i]]));
+        else window.localStorage.removeItem(BK_KEYS[i]);
+      } catch (e) {}
+    }
+    window.location.reload();
+  };
 
   var startedAt = Date.now();
   window.__dh = { solarToLunar: solarToLunar, lunarToJd: lunarToJd, jdToDate: jdToDate, T: T, parseRecur: parseRecur };
