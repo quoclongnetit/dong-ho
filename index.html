@@ -7,6 +7,8 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Đồng hồ">
 <title>Đồng hồ gia đình</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito:wght@600;700;800&display=swap" rel="stylesheet">
 <!--
   Đồng hồ để bàn cho iPad 4 (iOS 10.3.3 / Safari 10).
   Cố ý viết kiểu cũ: JavaScript ES5, XMLHttpRequest, flexbox không dùng "gap",
@@ -176,6 +178,106 @@ li.today { background: #f6e3d5; border-radius: 10px; border-bottom-color: transp
 .filebtn { position: relative; overflow: hidden; display: inline-block; }
 .filebtn input { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; font-size: 100px; cursor: pointer; }
 
+
+/* ===================== Phong cách Vui tươi (Playful & Fun) ===================== */
+body { font-family: "Nunito", -apple-system, "Helvetica Neue", Helvetica, Arial, sans-serif; font-weight: 600;
+  background-color: #fff6e0; color: #3b2f5c;
+  background-image: radial-gradient(#ffd8a8 2.5px, transparent 3px), radial-gradient(#c5f6fa 2.5px, transparent 3px);
+  background-size: 46px 46px, 46px 46px; background-position: 0 0, 23px 23px; }
+#app { padding: 14px 16px 18px; }
+.row + .row { margin-top: 14px; }
+.card { border: 3px solid #3b2f5c; border-radius: 26px; box-shadow: 0 6px 0 #3b2f5c; }
+.card + .card { margin-left: 14px; }
+.c-clock { background: #f1e6ff; }
+.c-weather { background: #dde9ff; }
+.c-plan { background: #d4f6f0; }
+.c-todo { background: #ffe0ef; }
+.c-next { background: #fff3c4; }
+.c-note { background: #fff3c4; }
+.c-quote { background: #f1e6ff; }
+.strip { height: 52px; }
+.strip .card { border-radius: 20px; box-shadow: 0 4px 0 #3b2f5c; }
+.muted, .lunar, .w-meta, .w-day .d, .w-upd, .p-time, .empty, .ev-sub, .ev-days small, .rec, .hint, .field label, .c-note .when { color: #6e6491; }
+.c-quote { color: #6b2fbf; font-style: normal; }
+.c-quote:before { content: "💡"; margin-right: 8px; }
+
+h2 { display: inline-block; -webkit-align-self: flex-start; align-self: flex-start; margin: 0 0 8px; padding: 3px 12px 2px;
+  border-radius: 999px; background: #3b2f5c; color: #fff; font-family: "Baloo 2", "Nunito", sans-serif; font-weight: 700;
+  font-size: 15px; letter-spacing: .02em; text-transform: none; }
+.c-weather h2:before { content: "🌈 "; }
+.c-plan h2:before { content: "🗓️ "; }
+.c-todo h2:before { content: "✅ "; }
+.c-next h2:before { content: "🎈 "; }
+
+/* Đồng hồ */
+.c-clock:before { content: ""; position: absolute; width: 230px; height: 230px; right: -70px; top: -80px; border-radius: 50%; background: #dcc6ff; }
+.c-clock:after { content: ""; position: absolute; width: 120px; height: 120px; left: -40px; bottom: -50px; border-radius: 50%; background: #ffc2df; }
+.c-clock > * { position: relative; z-index: 1; }
+.c-clock .tools { position: absolute; z-index: 2; top: 50%; bottom: auto; right: 14px; width: 48px; margin-top: -110px; }
+.c-clock .tools .btn-icon { display: block; margin: 0 0 10px; }
+.c-clock #holiday { padding-right: 70px; }
+.c-clock .greet, .c-clock .lunar, .c-clock .date { padding-right: 64px; }
+.c-clock #deco { position: absolute; z-index: 1; top: 12px; right: 76px; font-size: 34px; }
+.greet { font-family: "Baloo 2", "Nunito", sans-serif; font-size: 25px; font-weight: 800; color: #ff2e93; }
+.time { font-family: "Baloo 2", "Nunito", sans-serif; font-size: 124px; font-weight: 800; letter-spacing: -1px; color: #6b2fbf;
+  text-shadow: 4px 4px 0 #ffc2df; line-height: .95; margin-top: 2px; }
+.time .sec { display: inline-block; vertical-align: 52px; font-size: 30px; font-weight: 800; color: #fff; background: #ff2e93;
+  border: 3px solid #3b2f5c; border-radius: 999px; padding: 0 10px; line-height: 40px; margin-left: 10px; text-shadow: none; letter-spacing: 0;
+  -webkit-animation: bob 2s ease-in-out infinite; animation: bob 2s ease-in-out infinite; }
+.date { font-family: "Baloo 2", "Nunito", sans-serif; font-size: 26px; font-weight: 700; margin-top: 6px; color: #3b2f5c; }
+.lunar { font-size: 17px; font-weight: 700; }
+.badge { background: #ff2e93; color: #fff; border: 2px solid #3b2f5c; font-weight: 800; }
+.btn-icon { width: 44px; height: 44px; line-height: 40px; border-radius: 22px; background: #fff; border: 2px solid #3b2f5c;
+  box-shadow: 0 3px 0 #3b2f5c; margin-left: 6px; color: #3b2f5c; font-size: 19px; }
+.btn-icon:active { background: #fff; -webkit-transform: translateY(3px); transform: translateY(3px); box-shadow: 0 0 0 #3b2f5c; }
+
+/* Thời tiết */
+.w-icon { font-size: 64px; -webkit-animation: bob 3s ease-in-out infinite; animation: bob 3s ease-in-out infinite; }
+.w-temp { font-family: "Baloo 2", "Nunito", sans-serif; font-weight: 800; font-size: 62px; color: #1e6bff; }
+.w-desc { font-weight: 800; }
+.aqi { border: 3px solid #3b2f5c; border-radius: 16px; box-shadow: 0 3px 0 #3b2f5c; }
+.aqi b { font-family: "Baloo 2", "Nunito", sans-serif; font-weight: 800; }
+.w-alert { color: #ff6a00; font-weight: 800; }
+.w-days { border-top: 3px dashed #8fb4ff; }
+.w-day { font-weight: 700; }
+.w-day .r { color: #1e6bff; font-weight: 800; }
+
+/* Danh sách */
+.list li { border-bottom: 2px dashed rgba(59,47,92,.14); font-size: 18px; font-weight: 700; }
+.p-time { font-family: "Baloo 2", "Nunito", sans-serif; font-weight: 800; font-size: 17px; color: #0f9e8e; }
+.p-tag { background: #ff2e93; border-radius: 999px; font-weight: 800; }
+.p-tag.soon { color: #ff2e93; border: 2px solid #ff2e93; }
+li.now, li.today { background: #fff; border-radius: 14px; border: 2px solid #3b2f5c; box-shadow: 0 3px 0 #3b2f5c; margin-bottom: 4px; }
+li.now .p-time { color: #ff2e93; }
+.chk { width: 28px; height: 28px; border-radius: 9px; border: 3px solid #3b2f5c; background: #fff; line-height: 22px; font-weight: 800; }
+li.done .chk { background: #14b8a6; border-color: #3b2f5c; }
+.who { border-radius: 999px; font-weight: 800; padding: 3px 9px; }
+.del { color: #ff2e93; font-weight: 800; }
+.ev-days { font-family: "Baloo 2", "Nunito", sans-serif; font-weight: 800; font-size: 18px; color: #ff6a00; }
+.add input, .add select { border: 2px solid #3b2f5c; background: #fff; border-radius: 14px; font-weight: 700; }
+.btn { border: 2px solid #3b2f5c; background: #1e6bff; border-radius: 14px; font-weight: 800; box-shadow: 0 3px 0 #3b2f5c; }
+.btn:active { -webkit-transform: translateY(3px); transform: translateY(3px); box-shadow: 0 0 0 #3b2f5c; }
+.btn.ghost { background: #fff; color: #3b2f5c; border: 2px solid #3b2f5c; }
+.c-note .lbl { color: #ff2e93; font-weight: 800; }
+
+/* Nhắc giờ, cài đặt */
+#alarm { background: #ff2e93; border: 4px solid #3b2f5c; border-radius: 26px; box-shadow: 0 8px 0 #3b2f5c;
+  font-family: "Baloo 2", "Nunito", sans-serif; font-weight: 800;
+  -webkit-animation: pop .5s ease-out; animation: pop .5s ease-out; }
+.sheet { background: #fffaf0; border: 4px solid #3b2f5c; border-radius: 26px; }
+.sheet-head b { font-family: "Baloo 2", "Nunito", sans-serif; font-weight: 800; font-size: 24px; }
+.sheet-head b:before { content: "🎨 "; }
+.sec-title { font-family: "Baloo 2", "Nunito", sans-serif; font-weight: 800; color: #6b2fbf; border-top: 3px dashed #e5dbff; }
+.field select, .field textarea, .field input[type=text] { background: #fff; border: 2px solid #3b2f5c; border-radius: 12px; font-weight: 600; }
+#nTime, #sTime { font-family: "Baloo 2", "Nunito", sans-serif; font-weight: 700; letter-spacing: 0; }
+
+@-webkit-keyframes bob { 0%, 100% { -webkit-transform: translateY(0); } 50% { -webkit-transform: translateY(-4px); } }
+@keyframes bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
+@-webkit-keyframes pop { 0% { -webkit-transform: scale(.6); opacity: 0; } 70% { -webkit-transform: scale(1.06); } 100% { -webkit-transform: scale(1); opacity: 1; } }
+@keyframes pop { 0% { transform: scale(.6); opacity: 0; } 70% { transform: scale(1.06); } 100% { transform: scale(1); opacity: 1; } }
+
+.p-time { color: #0f9e8e; }
+.c-plan li.now .p-time { color: #ff2e93; }
 /* Giao diện tối */
 body.dark { background: #0d0f12; color: #e9e6df; }
 body.dark .card, body.dark .sheet { background: #171a1f; border-color: #262a31; }
@@ -198,6 +300,49 @@ body.dark .btn { background: #f0a35e; color: #1a1208; }
 body.dark .btn.ghost { background: transparent; color: #f0a35e; border-color: #f0a35e; }
 body.dark .del { color: #5b616b; }
 
+
+/* Đêm sao (tối, vui tươi) */
+body.dark { background-color: #191536; color: #f1ecff;
+  background-image: radial-gradient(rgba(255,236,153,.55) 1.5px, transparent 2px), radial-gradient(rgba(165,216,255,.35) 1.5px, transparent 2px);
+  background-size: 52px 52px, 52px 52px; background-position: 0 0, 26px 26px; }
+body.dark .card { border-color: #0c0a1d; box-shadow: 0 6px 0 #0c0a1d; }
+body.dark .c-clock { background: #2b2463; }
+body.dark .c-weather { background: #1c3160; }
+body.dark .c-plan { background: #173f36; }
+body.dark .c-todo { background: #45213f; }
+body.dark .c-next { background: #46301f; }
+body.dark .c-note { background: #463d16; }
+body.dark .c-quote { background: #2f2560; color: #d0bfff; }
+body.dark .c-clock:before { background: #3b3285; }
+body.dark .c-clock:after { background: #352d78; }
+body.dark h2 { background: #2ee6d0; color: #191536; }
+body.dark .greet { color: #ffa8a8; }
+body.dark .time { color: #fff3bf; text-shadow: 4px 4px 0 #6b2fbf; }
+body.dark .time .sec { background: #ff2e93; border-color: #0c0a1d; color: #fff; }
+body.dark .date { color: #f1ecff; }
+body.dark .muted, body.dark .lunar, body.dark .w-meta, body.dark .w-day .d, body.dark .w-upd, body.dark .empty, body.dark .ev-sub,
+body.dark .ev-days small, body.dark .rec, body.dark .hint, body.dark .field label, body.dark .c-note .when, body.dark li.done .p-text { color: #b1a7d6; }
+body.dark .p-time { color: #8ce99a; }
+body.dark .w-temp { color: #a5d8ff; }
+body.dark .w-day .r { color: #74c0fc; }
+body.dark .w-days { border-top-color: #3b5bdb; }
+body.dark .list li { border-bottom-color: rgba(255,255,255,.08); }
+body.dark li.now, body.dark li.today { background: #191536; border-color: #2ee6d0; box-shadow: 0 3px 0 #0c0a1d; }
+body.dark li.now .p-time { color: #ffa8a8; }
+body.dark .ev-days { color: #ffc078; }
+body.dark .btn-icon { background: #191536; color: #f1ecff; border-color: #0c0a1d; box-shadow: 0 3px 0 #0c0a1d; }
+body.dark .chk { background: #191536; border-color: #b1a7d6; }
+body.dark li.done .chk { background: #14b8a6; }
+body.dark .btn { background: #ff2e93; color: #fff; border-color: #0c0a1d; box-shadow: 0 3px 0 #0c0a1d; }
+body.dark .btn.ghost { background: #191536; color: #f1ecff; border-color: #b1a7d6; }
+body.dark .add input, body.dark .add select, body.dark .field select, body.dark .field textarea, body.dark .field input[type=text] { background: #191536; border-color: #6e6491; }
+body.dark .sheet { background: #221d48; border-color: #0c0a1d; }
+body.dark .sec-title { color: #d0bfff; border-top-color: #3b3285; }
+body.dark .badge { background: #ff2e93; color: #fff; border-color: #0c0a1d; }
+body.dark .c-note .lbl { color: #ffe066; }
+body.dark .w-alert { color: #ffc078; }
+body.dark .p-tag { background: #ff2e93; color: #fff; }
+body.dark .p-tag.soon { background: transparent; color: #ff8cc6; border-color: #ff2e93; }
 /* Chủ đề theo mùa */
 body.s-tet .greet, body.s-tet .ev-days, body.s-tet .c-note .lbl { color: #c8102e; }
 body.s-tet .badge, body.s-tet li.now, body.s-tet li.today { background: #fde2e4; color: #a00d24; }
@@ -318,8 +463,8 @@ body.dark.s-noel .btn { background: #4ade80; color: #04210f; }
       </div>
 
       <div class="sec-title">Gia đình</div>
-      <div class="field"><label>Thành viên</label><textarea id="sMembers" placeholder="Bố&#10;Mẹ&#10;Con"></textarea>
-        <div class="hint">Mỗi dòng một người. Dùng để gắn việc cho từng người, mỗi người một màu.</div></div>
+      <div class="field"><label>Thành viên</label><textarea id="sMembers" placeholder="Bố&#10;Mẹ&#10;Bánh Bao (trai)&#10;Khánh Chi (gái)"></textarea>
+        <div class="hint">Mỗi dòng một người. Màu: <b style="color:#14b8a6">Bố</b> xanh ngọc · <b style="color:#6b2fbf">Mẹ</b> tím · con trai <b style="color:#1e6bff">xanh dương</b> · con gái <b style="color:#ff2e93">hồng</b>.<br>Với các con, ghi thêm <b>(trai)</b> hoặc <b>(gái)</b> sau tên, ví dụ <b>Bánh Bao (trai)</b>.</div></div>
       <div class="field"><label>Sinh nhật, ngày giỗ &amp; sự kiện</label><textarea class="tall" id="sEvents" placeholder="12/3/1985 Sinh nhật Mẹ&#10;Âm 10/3 Giỗ ông nội&#10;20/12/2026 Đi Đà Lạt"></textarea>
         <div class="hint">Mỗi dòng: <b>ngày/tháng</b> rồi tên. Thêm <b>Âm</b> ở đầu nếu là ngày âm lịch.<br>
           Có năm trong quá khứ (12/3/1985) → nhắc hằng năm và tính tuổi. Năm ở tương lai (20/12/2026) → đếm ngược một lần.<br>
@@ -382,7 +527,7 @@ body.dark.s-noel .btn { background: #4ade80; color: #04210f; }
 
   var THU = ['Chủ Nhật', 'Thứ Hai', 'Thứ Ba', 'Thứ Tư', 'Thứ Năm', 'Thứ Sáu', 'Thứ Bảy'];
   var THU_NGAN = ['CN', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7'];
-  var COLORS = ['#c2571a', '#2f7d5b', '#3b6fb6', '#a3489a', '#b8860b', '#0f8a8a', '#c0392b', '#5d6d7e'];
+  var COLORS = ['#ff6b6b', '#4dabf7', '#40c057', '#cc5de8', '#ff922b', '#20c997', '#f06595', '#845ef7'];
 
   var CITIES = [
     ['Hà Nội', 21.0285, 105.8542], ['TP. Hồ Chí Minh', 10.7769, 106.7009], ['Hải Phòng', 20.8449, 106.6881],
@@ -417,7 +562,14 @@ body.dark.s-noel .btn { background: #4ade80; color: #04210f; }
   if (settings.name == null || settings.name === 'Chi Bao') settings.name = 'Chi Bao Family';
   def('city', 0); def('mode', 'auto'); def('darkFrom', 18); def('darkTo', 6);
   def('night', 'clock'); def('sleepFrom', 22); def('sleepTo', 6); def('idle', 0);
-  def('chime', 1); def('members', 'Bố\nMẹ\nCon'); def('events', ''); def('recur', ''); def('quotes', '');
+  def('chime', 1); def('members', ''); def('events', ''); def('recur', ''); def('quotes', '');
+  // Thành viên mặc định của nhà Chi Bao (thay danh sách mẫu cũ "Bố, Mẹ, Con" một lần).
+  if (!settings.membersV2) {
+    var oldM = trim(settings.members).replace(/\r/g, '');
+    if (!oldM || oldM === 'Bố\nMẹ\nCon') settings.members = 'Bố\nMẹ\nBánh Bao (trai)\nKhánh Chi (gái)';
+    settings.membersV2 = 1;
+    save('dh_settings', settings);
+  }
   if (!settings.tt) settings.tt = {};
 
   var todos = load('dh_todos', []);
@@ -425,14 +577,38 @@ body.dark.s-noel .btn { background: #4ade80; color: #04210f; }
   var note = load('dh_note', null);
   var photoIds = load('dh_photo_ids', []);
 
-  function members() {
+  // Màu gia đình: Bố – Fresh Teal, Mẹ – Deep Purple, con trai – Electric Blue, con gái – Neon Pink.
+  var ROLE_COLOR = { bo: '#14b8a6', me: '#6b2fbf', trai: '#1e6bff', gai: '#ff2e93' };
+  function roleOf(txt) {
+    var t = ' ' + txt.toLowerCase() + ' ';
+    if (/[\s(]gái[\s)]/.test(t) || /con gái/.test(t)) return 'gai';
+    if (/[\s(]trai[\s)]/.test(t) || /con trai/.test(t)) return 'trai';
+    if (/^\s*(bố|ba|cha|bố\s.*|ba\s.*)\s*$/.test(t) || /[\s(]bố[\s)]/.test(t)) return 'bo';
+    if (/^\s*(mẹ|má|mẹ\s.*)\s*$/.test(t) || /[\s(]mẹ[\s)]/.test(t)) return 'me';
+    return '';
+  }
+  // Mỗi dòng: "Tên" hoặc "Tên (trai)" / "Tên (gái)" / "Tên (bố)" / "Tên (mẹ)".
+  function memberList() {
     var out = [], lines = (settings.members || '').split(/\r?\n/);
-    for (var i = 0; i < lines.length; i++) { var n = trim(lines[i]); if (n) out.push(n); }
+    for (var i = 0; i < lines.length; i++) {
+      var raw = trim(lines[i]);
+      if (!raw) continue;
+      var name = trim(raw.replace(/\s*\([^)]*\)\s*$/, ''));
+      out.push({ name: name || raw, role: roleOf(raw) });
+    }
+    return out;
+  }
+  function members() {
+    var m = memberList(), out = [];
+    for (var i = 0; i < m.length; i++) out.push(m[i].name);
     return out;
   }
   function memberColor(name) {
-    var m = members();
-    for (var i = 0; i < m.length; i++) if (m[i].toLowerCase() === (name || '').toLowerCase()) return COLORS[i % COLORS.length];
+    var m = memberList(), k = 0;
+    for (var i = 0; i < m.length; i++) {
+      var c = m[i].role ? ROLE_COLOR[m[i].role] : COLORS[(k++) % COLORS.length];
+      if (m[i].name.toLowerCase() === (name || '').toLowerCase()) return c;
+    }
     return '#8a8f98';
   }
 
